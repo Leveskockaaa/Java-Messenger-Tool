@@ -32,6 +32,11 @@
             <artifactId>javafx-swing</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -40,6 +45,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
+                <configuration>
+                    <release>17</release>
+                    <compilerArgs>
+                        <arg>--add-exports</arg>
+                        <arg>javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</arg>
+                    </compilerArgs>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.openjfx</groupId>
@@ -47,6 +59,13 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>JavaMessengerWithVideo</mainClass>
+                    <executable>${java.home}/bin/java</executable>
+                    <options>
+                        <option>--module-path</option>
+                        <option>${env.PATH_TO_FX}</option>
+                        <option>--add-modules</option>
+                        <option>javafx.controls,javafx.media,javafx.swing</option>
+                    </options>
                 </configuration>
             </plugin>
         </plugins>
